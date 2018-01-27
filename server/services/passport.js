@@ -7,7 +7,8 @@ const User = require('mongoose').model('users');
 const googleStrategyOptions = {
   clientID: keys.googleClientID,
   clientSecret: keys.googleClientSecret,
-  callbackURL: '/auth/google/callback'
+  callbackURL: '/auth/google/callback',
+  proxy: true
 };
 
 const googleStrategy = new GoogleStrategy(googleStrategyOptions, (accessToken, refreshToken, profile, done) => {
