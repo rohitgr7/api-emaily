@@ -11,27 +11,28 @@ const googleStrategyOptions = {
   proxy: true
 };
 
-const googleStrategy = new GoogleStrategy(googleStrategyOptions, (accessToken, refreshToken, profile, done) => {
-  const googleId = profile.id;
+const googleStrategy = new GoogleStrategy(
+  googleStrategyOptions,
+  async (accessToken, refreshToken, profile, done) => {
+    const googleId = profile.id;
 
-  User.findOne({ googleId })
-    .then(user => {
-      if (!user) {
-        new User({ googleId }).save()
-          .then(user => done(null, user));
-      } else {
-        done(null, user);
-      }
-    });
-});
+    const existingUser = await User.findOne({ googleId });
+
+    if (!existingUser) {
+      const newUser = await new User({ googleId }).save();
+      done(null, newUser);
+    } else {
+      done(null, existingUser);
+    }
+  }
+);
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
-  User.findById(id)
-    .then(user => done(null, user));
+  User.findById(id).then(user => done(null, user));
 });
 
 passport.use(googleStrategy);
