@@ -6,8 +6,10 @@ const path = require('path');
 
 require('./db/connectDb');
 require('./models/user');
-const auth = require('./routes/auth');
-const api = require('./routes/billing');
+require('./models/survey');
+const authRouter = require('./routes/auth');
+const apiRouter = require('./routes/billing');
+const surveyRouter = require('./routes/survey');
 const keys = require('./config/keys');
 
 const app = express();
@@ -32,8 +34,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
-app.use('/auth', auth);
-app.use('/api', api);
+app.use('/auth', authRouter);
+app.use('/api', apiRouter);
+app.use('/user', surveyRouter);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
