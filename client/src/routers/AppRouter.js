@@ -7,7 +7,7 @@ import Dashboard from './../components/Dashboard';
 import Header from './../components/Header';
 import Landing from './../components/Landing';
 import NotFound from './../components/NotFound';
-import SurveyNew from './../components/SurveyNew';
+import SurveyNew from './../components/surveys/SurveyNew';
 
 class AppRouter extends Component {
   componentDidMount() {
