@@ -6,8 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import configureStore from './store/configureStore';
 import AppRouter from './routers/AppRouter';
-import axios from 'axios';
-window.axios = axios;
 
 const store = configureStore();
 
